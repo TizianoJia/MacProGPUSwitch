@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="435.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.jxh.switcher.controller.MainController">
+    <columnConstraints>
+        <ColumnConstraints minWidth="150.0" prefWidth="150.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="135.0" prefHeight="135.0" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" />
+    </rowConstraints>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+    <children>
+        <VBox>
+            <children>
+                <Label prefHeight="50.0" text="当前切换模式：" />
+                <Label fx:id="statusText" alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="150.0" text="Loading" textAlignment="CENTER">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+            <children>
+                <Button mnemonicParsing="false" onAction="#aboutApp" prefWidth="60.0" text="关于" />
+            </children>
+        </HBox>
+        <VBox GridPane.columnIndex="1">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0">
+                    <children>
+                        <Label prefHeight="50.0" text="Root密码：" />
+                        <!--
+                        <CheckBox mnemonicParsing="false" text="记住密码"/>
+                        -->
+                    </children>
+                </HBox>
+                <PasswordField fx:id="rootPassword" prefHeight="30.0" />
+                <HBox alignment="CENTER" prefHeight="50.0">
+                    <children>
+                        <RadioButton fx:id="radioButton0" mnemonicParsing="false" text="整合" userData="0">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="switchType" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <Label text=" " />
+                        <RadioButton fx:id="radioButton1" mnemonicParsing="false" text="高性能" toggleGroup="$switchType" userData="1" />
+                        <Label text=" " />
+                        <RadioButton fx:id="radioButton2" mnemonicParsing="false" text="自动" toggleGroup="$switchType" userData="2" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <children>
+                <Button mnemonicParsing="false" onAction="#applyApp" prefWidth="60.0" text="应用">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Button>
+                <Label text=" " />
+                <Button mnemonicParsing="false" onAction="#exitApp" prefWidth="60.0" text="关闭">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</GridPane>
