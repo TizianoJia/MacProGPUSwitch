@@ -66,6 +66,10 @@ public class MainController implements Initializable {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("错误");
             alert.setHeaderText("未选择切换模式");
+        } else if (!RunComUtil.checkPassword(rootPassword.getText())) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText("Root密码错误");
         } else {
             try {
                 RunComUtil.switchStatus(rootPassword.getText(), Integer.parseInt((String) target.getUserData()));

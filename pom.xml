@@ -6,7 +6,7 @@
 
     <groupId>cn.jxh</groupId>
     <artifactId>MacProGPUSwitch</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>MacPro GPU Switch</name>
     <url>https://github.com/JiaXiaohei/MacProGPUSwitch</url>
