@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class RunComUtil {
 
-    public static int getStatus() {
+    public static int getGpuStatus() {
         int i = 0;
         String[] command = {"/bin/sh", "-c", "pmset -g"};
 
@@ -37,10 +37,24 @@ public class RunComUtil {
 
         for (String process : processList) {
             if (process.startsWith("gpuswitch")) {
-                i = Integer.parseInt(process.replaceAll("gpuswitch", "").replaceAll(" ", ""));
+                i = Integer.parseInt(process.replaceAll("gpuswitch| ", ""));
             }
         }
         return i;
+    }
+
+    public static String getHardwareUUID() {
+        String str = "";
+        String[] command = {"/bin/sh", "-c", "system_profiler SPHardwareDataType"};
+
+        List<String> processList = runCom(command);
+
+        for (String process : processList) {
+            if (process.startsWith("Hardware UUID:")) {
+                str = process.replaceAll("Hardware UUID:| |-", "");
+            }
+        }
+        return str;
     }
 
     public static void switchStatus(String password, int status) {

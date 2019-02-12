@@ -33,7 +33,7 @@ public class RunPmset {
 
         // TODO Auto-generated method stub
 
-        String[] command = {"/bin/sh", "-c", "pmset -g"};
+        String[] command = {"/bin/sh", "-c", "system_profiler SPHardwareDataType"};
 
         List<String> processList = new ArrayList<>();
 
@@ -51,9 +51,6 @@ public class RunPmset {
 
         for (String process : processList) {
             System.out.println(process);
-            if (process.startsWith("gpuswitch")) {
-                System.out.println(process);
-            }
         }
     }
 

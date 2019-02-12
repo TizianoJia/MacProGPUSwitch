@@ -16,15 +16,20 @@
 
 package cn.jxh.switcher.controller;
 
+import cn.jxh.switcher.constant.AppConstant;
 import cn.jxh.switcher.util.CommonUtil;
 import cn.jxh.switcher.util.RunComUtil;
+import cn.jxh.switcher.util.SavePwdUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
+import java.io.*;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -39,6 +44,9 @@ public class MainController implements Initializable {
 
     @FXML
     private PasswordField rootPassword;
+
+    @FXML
+    private CheckBox rememberPassword;
 
     @FXML
     private ToggleGroup switchType;
@@ -56,6 +64,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showStatus();
+        showSavePwd();
     }
 
     @FXML
@@ -73,6 +82,7 @@ public class MainController implements Initializable {
         } else {
             try {
                 RunComUtil.switchStatus(rootPassword.getText(), Integer.parseInt((String) target.getUserData()));
+                SavePwdUtil.savePwd(rememberPassword.isSelected(), rootPassword.getText());
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setTitle("完成");
                 alert.setHeaderText("操作完成");
@@ -87,7 +97,7 @@ public class MainController implements Initializable {
     }
 
     private void showStatus() {
-        switch (RunComUtil.getStatus()) {
+        switch (RunComUtil.getGpuStatus()) {
             case 0:
                 statusText.setText("整合");
                 statusText.setTextFill(Color.web("#008080"));
@@ -110,13 +120,31 @@ public class MainController implements Initializable {
         }
     }
 
+    private void showSavePwd() {
+        Properties prop = new Properties();
+        try {
+            if (new File(AppConstant.CONFIG_FILE_NAME).exists()) {
+                InputStream in = new BufferedInputStream(new FileInputStream(AppConstant.CONFIG_FILE_NAME));
+                prop.load(in);
+                if (Integer.parseInt(prop.getProperty(AppConstant.CONFIG_PWD_SAVE)) == 1) {
+                    rememberPassword.setSelected(true);
+                    rootPassword.setText(SavePwdUtil.decrypt(prop.getProperty(AppConstant.CONFIG_PWD_CNT), RunComUtil.getHardwareUUID()));
+                }
+                in.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @FXML
     private void aboutApp() {
         String version = CommonUtil.getAppVersion();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("关于");
-        alert.setHeaderText("MacPro GPU Switch");
-        alert.setContentText(version + "\n\nLicensed under the Apache License 2.0\nhttps://github.com/JiaXiaohei/MacProGPUSwitch");
+        alert.setHeaderText("MacPro GPU Switch" + "\n" + version);
+        alert.setContentText("Author:JiaXiaohei\n\nLicensed under the Apache License 2.0\nhttps://github.com/JiaXiaohei/MacProGPUSwitch");
         alert.showAndWait();
     }
 
