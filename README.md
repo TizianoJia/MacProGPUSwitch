@@ -5,6 +5,7 @@ A JavaFX project to execute "sudo pmset -a GPUSwitch".
 
 一个基于JavaFX开发的MacBookPro显卡切换工具
 
+![此处应有图](img/app.png)
 
 
 说明
@@ -31,3 +32,8 @@ A JavaFX project to execute "sudo pmset -a GPUSwitch".
 * Apache Maven 3.6
 * Java Developer Kit 8
 * IntelliJ IDEA 2018.3
+
+
+历史版本
+============
+See [CHANGELOG.md](CHANGELOG.md)
